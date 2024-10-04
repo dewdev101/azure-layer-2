@@ -31,8 +31,6 @@ func main() {
 	fmt.Println("API is running on port 8080...")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
-	// Generate an encryption key. 16 bytes = AES-128, 32 bytes = AES-256.
-
 }
 func NewClientAzureKey() *azkeys.Client {
 	if err := godotenv.Load(); err != nil {
@@ -79,7 +77,6 @@ func generateNonceHandler(w http.ResponseWriter, r *http.Request) {
 		Nonce: nonceHex,
 	}
 
-	// Return JSON response
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(response); err != nil {
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
@@ -95,7 +92,6 @@ func generateDEKHandler(w http.ResponseWriter, r *http.Request) {
 		DEK: dekHex,
 	}
 
-	// Return JSON response
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(response); err != nil {
 		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
@@ -182,7 +178,7 @@ func decryptEDEKHandler(client *azkeys.Client, EncryptionKeyName string, Encrypt
 			fmt.Printf("failed to decrypt %v", err)
 			log.Fatal(err)
 		}
-		// fmt.Printf("res2:%v\n", res2.Result)
+
 		dek, err := convertByteArrayToBase64(res2.Result)
 		if err != nil {
 			fmt.Printf("failed to convertBase64ToByteArray  %v", err)
