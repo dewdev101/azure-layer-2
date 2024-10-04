@@ -137,7 +137,7 @@ func encryptEDEKHandler(client *azkeys.Client, EncryptionKeyName, EncryptionVers
 
 		// Respond with encrypted data in JSON.
 		response := map[string]string{
-			"EDEK": dekBase64Str,
+			"edek": dekBase64Str,
 		}
 
 		// Return JSON response.
@@ -187,7 +187,7 @@ func decryptEDEKHandler(client *azkeys.Client, EncryptionKeyName string, Encrypt
 
 		// Respond with encrypted data in JSON.
 		response := map[string]string{
-			"DEK": dek,
+			"dek": dek,
 		}
 
 		// Return JSON response.
